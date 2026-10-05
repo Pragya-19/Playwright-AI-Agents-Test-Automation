@@ -9,8 +9,15 @@ test.describe('Sauce Demo Inventory', () => {
     await page.locator('[data-test="login-button"]').click();
 
     // 2-3. Open the backpack and verify its detail page.
-    await page.locator('[data-test="item-4-title-link"]').click();
-    await expect(page.locator('[data-test="inventory-item-name"]')).toHaveText('Sauce Labs Backpack');
+   await Promise.all([
+  page.waitForURL(/inventory-item\.html/),
+  page.locator('[data-test="item-4-title-link"]').click()
+]);
+
+await expect(
+  page.locator('[data-test="inventory-item-name"]')
+).toHaveText('Sauce Labs Backpack', { timeout: 10000 });
+    
     await expect(page.locator('[data-test="inventory-item-price"]')).toHaveText('$29.99');
     await expect(page.locator('[data-test="add-to-cart"]')).toBeVisible();
     await expect(page.getByRole('button', { name: /Back to products/ })).toBeVisible();
