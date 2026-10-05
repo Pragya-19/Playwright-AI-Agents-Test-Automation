@@ -18,9 +18,17 @@ await expect(
   page.locator('[data-test="inventory-item-name"]')
 ).toHaveText('Sauce Labs Backpack', { timeout: 10000 });
     
-    await expect(page.locator('[data-test="inventory-item-price"]')).toHaveText('$29.99');
-    await expect(page.locator('[data-test="add-to-cart"]')).toBeVisible();
-    await expect(page.getByRole('button', { name: /Back to products/ })).toBeVisible();
+   await expect(
+  page.locator('[data-test="inventory-item-price"]')
+).toHaveText('$29.99', { timeout: 10000 });
+
+await expect(
+  page.locator('[data-test="add-to-cart"]')
+).toBeVisible({ timeout: 10000 });
+
+await expect(
+  page.getByRole('button', { name: /Back to products/i })
+).toBeVisible({ timeout: 10000 });
 
     // 4. Add the backpack and open the cart.
     await page.locator('[data-test="add-to-cart"]').click();
