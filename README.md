@@ -1,19 +1,26 @@
 # Playwright AI Agents Test Automation
 
-AI-assisted end-to-end test automation project using **Playwright, TypeScript, custom testing agents, MCP-based browser tooling, test planning, automated test generation, test healing, and GitHub Actions CI/CD**.
+[![AI Agents Playwright Tests](https://github.com/Pragya-19/Playwright-AI-Agents-Test-Automation/actions/workflows/playwright.yml/badge.svg)](https://github.com/Pragya-19/Playwright-AI-Agents-Test-Automation/actions/workflows/playwright.yml)
+
+AI-assisted end-to-end test automation project built using **Playwright, TypeScript, Playwright MCP, specialized QA agents, structured test planning, automated browser testing, HTML reporting, and GitHub Actions CI/CD**.
+
+The project explores how AI agents can augment different stages of the software testing lifecycle while keeping **deterministic Playwright assertions and human review** at the core.
+
+---
 
 ## Project Objective
 
-This project demonstrates how AI agents can support the software testing lifecycle by helping with:
+The objective of this project is to demonstrate an AI-assisted QA workflow where specialized agents support:
 
-- Test planning
-- Test case generation
-- Browser exploration
+- application exploration
+- test planning
+- test scenario generation
 - Playwright test creation
-- Failure analysis
-- Test healing
-- End-to-end execution
-- CI/CD integration
+- browser-based validation
+- failure analysis
+- test remediation
+- re-execution
+- CI/CD validation
 
 The application under test is **SauceDemo / Swag Labs**.
 
@@ -24,78 +31,108 @@ The application under test is **SauceDemo / Swag Labs**.
 - Playwright
 - TypeScript
 - Node.js
-- AI Testing Agents
 - Playwright MCP
+- AI Testing Agents
 - Git
 - GitHub
 - GitHub Actions
-- HTML Test Reporting
+- Playwright HTML Reporter
 
 ---
 
-## AI Agents Used
+## AI Agent Architecture
 
-The project contains three specialized testing agents.
+The repository contains three specialized QA agents.
 
 ### 1. Playwright Test Planner Agent
 
-Responsible for:
+The Planner Agent is designed to:
 
-- Exploring the web application
-- Understanding user journeys
-- Identifying functional flows
-- Designing positive and negative scenarios
-- Creating a structured test plan
+- explore the application using browser tooling
+- understand major user journeys
+- identify functional and negative scenarios
+- organize test coverage by feature
+- create a structured test plan
 
-### 2. Playwright Test Generator Agent
+A structured SauceDemo test plan is maintained under:
 
-Responsible for:
-
-- Reading the test plan
-- Executing browser interactions
-- Generating Playwright automation tests
-- Writing reusable automated test scenarios
-
-### 3. Playwright Test Healer Agent
-
-Responsible for:
-
-- Running failing Playwright tests
-- Debugging failures
-- Inspecting selectors and application state
-- Identifying root causes
-- Updating broken test automation
-- Re-running tests after remediation
+```text
+specs/sauce-demo-test-plan.md
+```
 
 ---
 
-## Architecture
+### 2. Playwright Test Generator Agent
+
+The Generator Agent is designed to:
+
+- consume planned test scenarios
+- inspect the application through browser tooling
+- translate scenarios into Playwright tests
+- generate executable TypeScript test cases
+- use Playwright locators and assertions
+- maintain test code aligned with the planned coverage
+
+The executable Playwright test suite is stored under:
+
+```text
+tests/
+```
+
+---
+
+### 3. Playwright Test Healer Agent
+
+The Healer Agent is designed to support:
+
+- execution of failing Playwright tests
+- failure-context inspection
+- locator and DOM investigation
+- debugging broken automation
+- AI-assisted code remediation
+- test re-execution after changes
+
+The healing workflow is treated as **AI-assisted test remediation**, with human review retained before accepting changes.
+
+This project does **not** claim a fully autonomous self-healing production framework.
+
+---
+
+## AI-Assisted QA Workflow
 
 ```text
 Web Application
-      ↓
-AI Test Planner Agent
-      ↓
-Test Plan
-      ↓
-AI Test Generator Agent
-      ↓
-Playwright Test Cases
-      ↓
+       ↓
+Planner Agent + Playwright MCP
+       ↓
+Structured Test Plan
+       ↓
+Generator Agent + Browser Exploration
+       ↓
+Playwright TypeScript Tests
+       ↓
 Playwright Test Runner
-      ↓
-Test Failure
-      ↓
-AI Test Healer Agent
-      ↓
-Updated Test
-      ↓
+       ↓
+Assertions + Execution Results
+       ↓
+Failure / Debug Context
+       ↓
+Healer Agent
+       ↓
+AI-Assisted Diagnosis & Remediation
+       ↓
 Re-execution
-      ↓
-HTML Report / CI Pipeline
+       ↓
+Human Review
+       ↓
+CI/CD Validation
+```
 
+---
 
-Project Structure
+## Project Structure
+
+```text
 Playwright-AI-Agents-Test-Automation
 │
 ├── .github/
@@ -107,6 +144,16 @@ Playwright-AI-Agents-Test-Automation
 │   └── workflows/
 │       ├── playwright.yml
 │       └── copilot-setup-steps.yml
+│
+├── .playwright-mcp/
+│
+├── .vscode/
+│
+├── docs/
+│   └── screenshots/
+│       ├── ai-agents-playwright-11-tests-passed.png
+│       ├── ai-agents-playwright-html-report.png
+│       └── github-actions-ai-agents-ci-passed.png
 │
 ├── specs/
 │   ├── README.md
@@ -129,107 +176,251 @@ Playwright-AI-Agents-Test-Automation
 ├── package.json
 ├── package-lock.json
 └── README.md
+```
 
-Test Coverage
+---
 
-The current suite contains automated scenarios covering:
+## Test Coverage
 
-Successful authentication
-Invalid login validation
-Locked-out user validation
-Product detail verification
-Product sorting
-Add/remove cart state
-Checkout required-field validation
-Checkout cancellation
-Complete purchase workflow
-Logout
-Navigation drawer
-PDF order generation
-Test Plan Coverage
+The current Playwright suite contains **11 automated test files** covering major SauceDemo workflows.
 
-The AI-assisted test plan includes broader coverage across:
+### Authentication
 
-Authentication
-Valid login
-Invalid credentials
-Required-field validation
-Locked-out user
-Logout
-Protected-page access
-Inventory
-Product listing
-Product details
-Product sorting
-Add/remove cart operations
-Reset application state
-Cart and Checkout
-Cart validation
-Empty cart behavior
-Checkout validation
-Checkout totals
-Complete purchase
-Checkout cancellation
-Navigation and Resilience
-Navigation drawer
-About link
-PDF order generation
-Refresh behavior
-Session consistency
-Running the Project
+- successful login
+- invalid credential validation
+- login-field validation
+- authentication-related negative scenarios
 
-Install dependencies:
+### Inventory & Product Validation
 
+- inventory page behavior
+- product detail validation
+- product sorting
+- product information validation
+
+### Shopping Cart
+
+- adding products to cart
+- removing products
+- cart-state validation
+- cart persistence behavior
+
+### Checkout
+
+- checkout form validation
+- required-field validation
+- checkout cancellation
+- complete purchase workflow
+- order confirmation
+
+### Navigation
+
+- logout workflow
+- navigation drawer behavior
+- application navigation
+
+### Additional Coverage
+
+- order / PDF-related workflow validation
+- application-state validation
+- end-to-end business-flow testing
+
+---
+
+## Structured Test Planning
+
+The repository includes an AI-assisted SauceDemo test plan covering:
+
+- authentication
+- inventory
+- product details
+- sorting
+- cart operations
+- checkout
+- navigation
+- session behavior
+- resilience scenarios
+- order-related workflows
+
+The purpose of maintaining the test plan separately from the automation code is to preserve:
+
+- test traceability
+- coverage visibility
+- separation between test design and test implementation
+- easier human review of AI-assisted outputs
+
+---
+
+## Running the Project
+
+### Install dependencies
+
+```bash
 npm install
+```
 
-Install Playwright browser:
+### Install Chromium
 
-npx playwright install
+```bash
+npx playwright install chromium
+```
 
-Run all tests:
+### Run the stable Chromium suite
 
-npx playwright test
+```bash
+npm test
+```
 
-Run tests in headed mode:
+### Run all configured Playwright projects
 
-npx playwright test --headed
+```bash
+npm run test:all
+```
 
-Open the HTML report:
+### Run in headed mode
 
-npx playwright show-report
-CI/CD
+```bash
+npm run test:headed
+```
 
-GitHub Actions is configured to:
+### Open Playwright UI mode
 
-Checkout the repository
-Set up Node.js
-Install dependencies
-Install Playwright browsers
-Execute the automated tests
-Upload the Playwright HTML report as an artifact
-Key Concepts Demonstrated
-AI-assisted software testing
-Agent-based QA workflows
-Test planning automation
-Automated test generation
-AI-assisted test healing
-Playwright browser automation
-End-to-end testing
-Negative testing
-GitHub Actions CI/CD
-HTML reporting
-MCP-based browser interaction
-Current Status
+```bash
+npm run test:ui
+```
 
-The repository contains:
+### Open the Playwright HTML report
 
-AI test planner agent
-AI test generator agent
-AI test healer agent
-Structured SauceDemo test plan
-11 Playwright automated test files
-Chromium execution configuration
-GitHub Actions workflow
-Playwright HTML reporting
+```bash
+npm run report
+```
 
-Further refinement will focus on improving CI stability, expanding agent workflows, and strengthening test coverage.
+---
+
+## Current Execution Status
+
+- **11 Playwright automated tests**
+- **11/11 passing locally on Chromium**
+- **GitHub Actions CI passing**
+- Playwright HTML reporting enabled
+- CI report artifact generation enabled
+- AI Planner, Generator, and Healer agent definitions maintained in the repository
+
+---
+
+## Execution Evidence
+
+### Local Playwright Execution
+
+The current Chromium automation suite executes successfully with:
+
+- **11 tests passed**
+- **0 failed**
+
+![Local Playwright Execution](docs/screenshots/ai-agents-playwright-11-tests-passed.png)
+
+---
+
+### Playwright HTML Report
+
+The Playwright HTML report provides detailed execution results for the automated suite.
+
+![Playwright HTML Report](docs/screenshots/ai-agents-playwright-html-report.png)
+
+---
+
+### GitHub Actions CI
+
+The test suite also executes successfully in a clean Ubuntu CI environment using GitHub Actions.
+
+![GitHub Actions CI](docs/screenshots/github-actions-ai-agents-ci-passed.png)
+
+The CI pipeline:
+
+1. checks out the repository
+2. sets up Node.js
+3. installs dependencies
+4. installs Chromium
+5. executes the Playwright test suite
+6. uploads the Playwright HTML report as an artifact
+
+---
+
+## CI Stability
+
+The framework uses Playwright web-first assertions and explicit synchronization with meaningful application states instead of fixed delays.
+
+For example, product-detail navigation waits for the expected application URL before validating the detail page.
+
+This improves consistency between:
+
+```text
+Local Windows execution
+        ↓
+Headless Linux execution
+        ↓
+GitHub Actions CI
+```
+
+---
+
+## What the AI Layer Does
+
+The AI layer in this project is intended to **augment QA engineering**, not replace deterministic automation.
+
+AI agents can support:
+
+```text
+Requirement / Application Understanding
+                ↓
+Test Planning
+                ↓
+Scenario Generation
+                ↓
+Automation Generation
+                ↓
+Failure Investigation
+                ↓
+AI-Assisted Remediation
+```
+
+Playwright remains responsible for deterministic browser execution and assertions.
+
+Human review remains responsible for validating:
+
+- generated scenarios
+- locator quality
+- assertion correctness
+- business relevance
+- agent-proposed code changes
+
+---
+
+## Key Concepts Demonstrated
+
+- AI-assisted software testing
+- Agent-based QA workflows
+- Playwright MCP
+- Structured test planning
+- AI-assisted test generation
+- AI-assisted failure analysis
+- AI-assisted test remediation
+- Playwright browser automation
+- TypeScript
+- End-to-end testing
+- Positive and negative testing
+- Web-first assertions
+- CI stability
+- HTML reporting
+- GitHub Actions CI/CD
+- Human-in-the-loop QA
+
+---
+
+## Key Learning
+
+This project demonstrates an important principle for AI-assisted testing:
+
+> AI can accelerate test design, generation, and debugging, but reliable QA still requires deterministic assertions, traceability, reproducible execution, and human validation.
+
+The goal is not to remove the QA engineer from the loop, but to use AI to increase testing speed, coverage exploration, and debugging efficiency while maintaining engineering control.
